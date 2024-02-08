@@ -5,6 +5,8 @@ import re
 from typing import List
 import logging
 
+PII_FIELDS = ("email", "phone", "ssn", "password", "last_login")
+
 
 def create_pattern(fields: List[str], sep: str) -> str:
     """create regex pattern for fields"""
@@ -42,3 +44,17 @@ class RedactingFormatter(logging.Formatter):
         formatted = logging.Formatter(self.FORMAT).format(record)
         return filter_datum(self._fields, self.REDACTION,
                             formatted, self.SEPARATOR)
+        
+        
+def get_logger() -> logging.Logger:
+    """ get logger function """
+    logger = logging.getLogger("user_data")
+    logger.propagate = False
+    handler = logging.StreamHandler()
+    logger.setLevel(logging.INFO)
+    handler.setFormatter(RedactingFormatter.FORMAT)
+    logger.addHandler(handler)
+     
+    return logger
+
+
