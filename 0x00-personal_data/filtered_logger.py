@@ -10,7 +10,8 @@ def replace_value(field: str, message: str, repl: str, sep: str) -> str:
     return re.sub(r"(?<=" + field + r"=)[^" + sep + r"]+", repl, message)
 
 
-def filter_datum(fields: List[str], redaction: str, message: str, separator) -> str:
+def filter_datum(fields: List[str], redaction: str,
+                 message: str, separator) -> str:
     """obfuscate log data"""
     for field in fields:
         message = replace_value(field, message, redaction, separator)
