@@ -5,7 +5,8 @@ import re
 from typing import List
 
 
-def create_pattern(fields, sep: str):
+def create_pattern(fields: List[str], sep: str) -> str:
+    """create regex pattern for fields"""
     return "|".join(
         [re.escape(field) + r"=[^" + sep +
          "]+(?=" + sep + ")" for field in fields]
