@@ -5,13 +5,17 @@ import re
 from typing import List
 
 
-def replace_value(field: str, message: str, repl: str, sep: str) -> str:
-    """replace a value"""
-    return re.sub(r"(?<=" + field + r"=)[^" + sep + r"]+", repl, message)
-
-
-def filter_datum(fields: List[str], redaction: str, message: str, separator) -> str:
-    """obfuscate log data"""
-    return re.sub(
-        r"{}(?={})".format(separator + "|".join(fields), separator), redaction, message
+def create_pattern(fields, sep: str):
+    return "|".join(
+        [re.escape(field) + r"=[^" + sep +
+         "]+(?=" + sep + ")" for field in fields]
     )
+
+
+def filter_datum(
+    fields: List[str], redaction: str, message: str, separator: str
+) -> str:
+    """obfuscate log data"""
+    return re.sub(create_pattern(fields, separator),
+                  lambda x: x.group(0).split("=")[0] + "="
+                  + redaction, message)
