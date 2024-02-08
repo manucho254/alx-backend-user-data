@@ -5,7 +5,7 @@ import re
 from typing import List
 import logging
 
-PII_FIELDS = ("email", "phone", "ssn", "password", "last_login")
+PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
 def create_pattern(fields: List[str], sep: str) -> str:
