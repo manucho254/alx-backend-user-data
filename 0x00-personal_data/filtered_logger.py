@@ -44,8 +44,8 @@ class RedactingFormatter(logging.Formatter):
         formatted = logging.Formatter(self.FORMAT).format(record)
         return filter_datum(self._fields, self.REDACTION,
                             formatted, self.SEPARATOR)
-        
-        
+
+
 def get_logger() -> logging.Logger:
     """ get logger function """
     logger = logging.getLogger("user_data")
@@ -54,7 +54,5 @@ def get_logger() -> logging.Logger:
     handler = logging.StreamHandler()
     handler.setFormatter(RedactingFormatter(PII_FIELDS))
     logger.addHandler(handler)
-     
+
     return logger
-
-
