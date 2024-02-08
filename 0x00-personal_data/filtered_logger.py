@@ -75,14 +75,25 @@ def get_db() -> MySQLConnection:
 def main():
     """ Read and filter data """
     db = get_db()
-    print(type(db))
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
+    fields = ["name", "email", "phone", "ssn", "password",
+              "ip", "last_login", "user_agent"]
+    log = get_logger()
+
     for row in cursor:
-        print(row)
+        arr = []
+        for idx in range(len(fields)):
+            arr.append(f"{fields[idx]}={row[idx]}")
+        message = "; ".join(arr)
+        message += ";"
+        record = logging.LogRecord("user_data", logging.INFO,
+                                   None, None, message, None, None)
+        log.handle(record)
+
     cursor.close()
     db.close()
-    
-    
+
+
 if __name__ == "__main__":
     main()
