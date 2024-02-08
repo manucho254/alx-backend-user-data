@@ -70,3 +70,15 @@ def get_db() -> MySQLConnection:
     return MySQLConnection(
         host=host, user=username, password=password, database=database
     )
+
+
+def main():
+    """ Read and filter data """
+    db = get_db()
+    print(type(db))
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    for row in cursor:
+        print(row)
+    cursor.close()
+    db.close()
