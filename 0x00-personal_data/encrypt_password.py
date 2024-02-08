@@ -7,11 +7,11 @@ import bcrypt
 
 def hash_password(password: str) -> bytes:
     """hash user password"""
-    return bcrypt.hashpw(password, bcrypt.gensalt())
+    return bcrypt.hashpw(str.encode(password), bcrypt.gensalt())
 
 
 def is_valid(hashed_password: bytes, password: str) -> bool:
     """validate that the provided
-       password matchesthe hashed password.
+    password matches the hashed password.
     """
-    return bcrypt.checkpw(password, hashed_password)
+    return bcrypt.checkpw(str.encode(password), hashed_password)
