@@ -9,8 +9,15 @@ class Auth:
     """ Auth class """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """ Eequire auth """
-        return False
+        """ require auth """
+        if path is None or excluded_paths is None or len(excluded_paths) == 0:
+            return True
+
+        for val in excluded_paths:
+            if val.rstrip("/") == path.rstrip("/"):
+                return False
+
+        return True
 
     def authorization_header(self, request=None) -> str:
         """ Authorization header """
