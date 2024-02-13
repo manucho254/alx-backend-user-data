@@ -10,7 +10,8 @@ from models.user import User
 class BasicAuth(Auth):
     """Basic auth class"""
 
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
+    def extract_base64_authorization_header(self,
+                                            authorization_header: str) -> str:
         """get Base64 part of the Authorization
         header for a Basic Authentication
         """
@@ -65,10 +66,11 @@ class BasicAuth(Auth):
             or not isinstance(user_pwd, str)
         ):
             return
-        
+
         users = User.search({'email': user_email})
-        
         if len(users) == 0:
             return
-        
-        print(users)
+
+        for user in users:
+            if user.is_valid_password(user_pwd):
+                return user
