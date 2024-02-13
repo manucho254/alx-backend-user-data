@@ -50,5 +50,5 @@ class BasicAuth(Auth):
             or ":" not in decoded_base64_authorization_header
         ):
             return (None, None)
-        
+
         return tuple(decoded_base64_authorization_header.split(":"))
