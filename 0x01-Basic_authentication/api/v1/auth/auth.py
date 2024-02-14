@@ -16,7 +16,8 @@ class Auth:
 
         for val in excluded_paths:
             if val.endswith("*"):
-                if re.match(val, path):
+                val.replace("*", ".*")
+                if re.match(re.compile(val), path):
                     return False
 
             if val.rstrip("/") == path.rstrip("/"):
