@@ -4,6 +4,7 @@
 from api.v1.views import app_views
 from flask import abort, jsonify, request
 from models.user import User
+import os
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
@@ -25,14 +26,15 @@ def login_user():
     if len(users) == 0:
         return jsonify({"error": "no user found for this email"}), 404
 
-    user = None
-    for obj in users:
-        if not obj.is_valid_password(password):
-            return jsonify({"error": "wrong password"}), 401
-        user = obj
+    user = users[0]
+    if not user.is_valid_password(password):
+        return jsonify({"error": "wrong password"}), 401
 
     from api.v1.app import auth
     # create user session
-    auth.create_session(user.id)
+    session_id = auth.create_session(user.id)
 
-    return jsonify(user.to_json()), 200
+    out = jsonify(user.to_json())
+    out.set_cookie(os.getenv("SESSION_NAME"), session_id)
+
+    return out
