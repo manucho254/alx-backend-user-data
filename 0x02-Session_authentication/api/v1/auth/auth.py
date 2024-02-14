@@ -42,7 +42,7 @@ class Auth:
         """get current user"""
         return
 
-    def session_cookie(self, request=None):
+    def session_cookie(self, request=None) -> str:
         """ create a session cookie """
 
         if request is None:
