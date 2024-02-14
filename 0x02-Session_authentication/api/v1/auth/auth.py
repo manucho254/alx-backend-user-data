@@ -44,7 +44,6 @@ class Auth:
 
     def session_cookie(self, request=None) -> str:
         """ create a session cookie """
-
         if request is None:
             return
 
