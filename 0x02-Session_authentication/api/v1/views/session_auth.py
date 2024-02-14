@@ -15,14 +15,13 @@ def login_user():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    if not email:
+    if email is None:
         return jsonify({"error": "email missing"}), 400
 
-    if not password:
-        return jsonify({"error": "password missing"})
+    if password is None:
+        return jsonify({"error": "password missing"}), 400
 
     users = User.search({"email": email})
-
     if len(users) == 0:
         return jsonify({"error": "no user found for this email"}), 404
 
