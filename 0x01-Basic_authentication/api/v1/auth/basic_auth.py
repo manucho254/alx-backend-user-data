@@ -78,7 +78,8 @@ class BasicAuth(Auth):
         for user in users:
             if user.is_valid_password(user_pwd):
                 return user
-
+        return
+    
     def current_user(self, request=None) -> TypeVar('User'):
         """ get current user """
 
