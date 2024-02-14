@@ -71,7 +71,11 @@ class BasicAuth(Auth):
         ):
             return
 
-        users = User.search({'email': user_email})
+        try:
+            users = User.search({'email': user_email})
+        except Exception as e:
+            users = []
+
         if len(users) == 0:
             return
 
@@ -79,7 +83,7 @@ class BasicAuth(Auth):
             if user.is_valid_password(user_pwd):
                 return user
         return
-    
+
     def current_user(self, request=None) -> TypeVar('User'):
         """ get current user """
 
