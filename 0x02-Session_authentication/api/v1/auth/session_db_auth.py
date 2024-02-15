@@ -22,7 +22,7 @@ class SessionDBAuth(SessionExpAuth):
         return session_id
 
     def user_id_for_session_id(self, session_id=None):
-        """ get user id """
+        """ get user id using session"""
         if session_id is None:
             return
 
@@ -46,7 +46,7 @@ class SessionDBAuth(SessionExpAuth):
         return user_id
 
     def destroy_session(self, request=None):
-        """ """
+        """ destroy session """
         if request is None:
             return
 
