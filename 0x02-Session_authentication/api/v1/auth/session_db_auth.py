@@ -26,7 +26,11 @@ class SessionDBAuth(SessionExpAuth):
         if session_id is None:
             return
 
-        sessions = UserSession.search({"session_id": session_id})
+        try:
+            sessions = UserSession.search({"session_id": session_id})
+        except Exception as e:
+            sessions = []
+
         if len(sessions) == 0:
             return
 
