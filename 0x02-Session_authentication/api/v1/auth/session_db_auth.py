@@ -3,6 +3,7 @@
 from api.v1.auth.session_exp_auth import SessionExpAuth
 from models.user_session import UserSession
 from datetime import timedelta, datetime
+import os
 
 
 class SessionDBAuth(SessionExpAuth):
@@ -63,6 +64,6 @@ class SessionDBAuth(SessionExpAuth):
             return False
 
         del self.user_id_by_session_id[session_id]
-        sesssions[0].remove()
+        sessions[0].remove()
 
         return True
