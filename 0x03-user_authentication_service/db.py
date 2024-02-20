@@ -67,17 +67,13 @@ class DB:
             user_id (str): user id
         """
 
+        user = self.find_user_by(id=user_id)
+
         try:
-            user = self.find_user_by(id=user_id)
-
-            try:
-                for key, value in kwargs.items():
-                    setattr(user, key, value)
-            except ValueError as e:
-                raise e
-
-            self.__session.add(user)
-            self._session.commit()
-
-        except (InvalidRequestError, NoResultFound) as e:
+            for key, value in kwargs.items():
+                setattr(user, key, value)
+        except ValueError as e:
             raise e
+
+        self.__session.add(user)
+        self._session.commit()
