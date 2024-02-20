@@ -80,4 +80,4 @@ class DB:
             self._session.commit()
 
         except (InvalidRequestError, NoResultFound) as e:
-            pass
+            raise e
