@@ -61,7 +61,7 @@ class DB:
 
         return users[0]
 
-    def update_user(self, user_id: str, **kwargs) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """update user by id
         Args:
             user_id (str): user id
