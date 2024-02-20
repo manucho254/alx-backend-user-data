@@ -41,3 +41,5 @@ class Auth:
         new_user = self._db.add_user(email, _hash_password(password))
         self._db._session.add(new_user)
         self._db._session.commit()
+
+        return new_user
