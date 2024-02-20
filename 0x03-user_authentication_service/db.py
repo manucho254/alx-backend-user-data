@@ -60,3 +60,24 @@ class DB:
             raise NoResultFound
 
         return users[0]
+
+    def update_user(self, user_id: str, **kwargs) -> None:
+        """update user by id
+        Args:
+            user_id (str): user id
+        """
+
+        try:
+            user = self.find_user_by(id=user_id)
+
+            try:
+                for key, value in kwargs.items():
+                    setattr(user, key, value)
+            except ValueError as e:
+                raise e
+
+            self.__session.add(user)
+            self._session.commit()
+
+        except (InvalidRequestError, NoResultFound) as e:
+            pass
