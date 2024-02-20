@@ -15,7 +15,10 @@ class SessionExpAuth(SessionAuth):
 
     def create_session(self, user_id=None):
         """ create new session """
+
         session_id = super().create_session(user_id)
+        if session_id is None:
+            return
 
         sesssion_data = {"user_id": user_id, "created_at": datetime.now()}
         self.user_id_by_session_id[session_id] = sesssion_data
