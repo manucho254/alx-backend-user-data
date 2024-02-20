@@ -52,7 +52,7 @@ class DB:
         """
 
         try:
-            users: User = User.query.filter_by(**kwargs).all()
+            users = self._session.query(User).filter_by(**kwargs).all()
         except InvalidRequestError as e:
             raise e
 
