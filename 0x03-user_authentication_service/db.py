@@ -66,8 +66,10 @@ class DB:
         Args:
             user_id (str): user id
         """
-
-        user = self.find_user_by(id=user_id)
+        try:
+            user = self.find_user_by(id=user_id)
+        except (InvalidRequestError, NoResultFound) as e:
+            raise e
 
         try:
             for key, value in kwargs.items():
