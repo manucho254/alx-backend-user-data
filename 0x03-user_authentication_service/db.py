@@ -28,12 +28,12 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str, hashed_password: str):
+    def add_user(self, email: str, hashed_password: str) -> User:
         """Add user to database
         Args:
             email (str): user email
             hashed_password (str): hashed password
-        Returns:
+        Return:
             User: return user object
         """
         user = User(email=email, hashed_password=hashed_password)
