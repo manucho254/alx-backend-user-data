@@ -33,6 +33,7 @@ class DB:
 
     def add_user(self, email: str, hashed_password: str) -> User:
         """Add user to database
+        
         Args:
             email (str): user email
             hashed_password (str): hashed password
@@ -47,6 +48,7 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """find user by kwargs
+        
         Returns:
             User: found user
         """
@@ -63,6 +65,7 @@ class DB:
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """update user by id
+        
         Args:
             user_id (str): user id
         """

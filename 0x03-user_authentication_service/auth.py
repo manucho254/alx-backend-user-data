@@ -50,6 +50,7 @@ class Auth:
 
     def valid_login(self, email: str, password: str) -> bool:
         """check if login is valid
+        
         Args:
             email (str): user email
             password (str): user password
@@ -67,6 +68,7 @@ class Auth:
 
     def create_session(self, email: str) -> str:
         """create new session
+        
         Args:
             email (str): user email
 
@@ -90,6 +92,7 @@ class Auth:
 
         Args:
             session_id (str): user session id
+            
         Returns:
             User | None: User object if found else None
         """
@@ -106,6 +109,7 @@ class Auth:
 
     def destroy_session(self, user_id: int) -> None:
         """Destroy user session
+        
         Args:
             user_id (int): user id
         """
@@ -117,7 +121,7 @@ class Auth:
 
     def get_reset_password_token(self, email: str) -> str:
         """Get reset password.
-
+        
         Args:
             email (str): user email
         Raises:
