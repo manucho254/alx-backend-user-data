@@ -3,7 +3,7 @@
 """
 import requests
 
-URL = "http://0.0.0.0:5000"
+URL = "http://127.0.0.1:5000"
 
 
 def register_user(email: str, password: str) -> None:
@@ -15,7 +15,10 @@ def register_user(email: str, password: str) -> None:
     """
     data = {"email": email, "password": password}
     res = requests.post(f"{URL}/users", data=data)
+    payload = {"email": email, "message": "user created"}
+
     assert res.status_code == 200
+    assert res.json() == payload
 
 
 def log_in_wrong_password(email: str, password: str) -> None:
@@ -27,6 +30,7 @@ def log_in_wrong_password(email: str, password: str) -> None:
     """
     data = {"email": email, "password": password}
     res = requests.post(f"{URL}/sessions", data=data)
+
     assert res.status_code == 401
 
 
@@ -42,14 +46,18 @@ def log_in(email: str, password: str) -> str:
     """
     data = {"email": email, "password": password}
     res = requests.post(f"{URL}/sessions", data=data)
+    payload = {"email": email, "message": "logged in"}
+
     assert res.status_code == 200
+    assert res.json() == payload
 
     return res.cookies.get("session_id")
 
 
 def profile_unlogged() -> None:
     """Test view profile unauthenticated"""
-    res = requests.get(f"{URL}/profile")
+    cookies = dict(session_id=None)
+    res = requests.get(f"{URL}/profile", cookies=cookies)
 
     assert res.status_code == 403
 
