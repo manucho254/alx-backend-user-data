@@ -36,6 +36,4 @@ class Auth:
                 raise ValueError(f"User {email} already exists")
         except (InvalidRequestError, NoResultFound):
             user = self._db.add_user(email, _hash_password(password))
-            self._db._session.add(user)
-            self._db._session.commit()
             return user
