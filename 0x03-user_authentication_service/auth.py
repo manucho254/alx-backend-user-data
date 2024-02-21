@@ -86,9 +86,9 @@ class Auth:
 
     def get_user_from_session_id(self, session_id: str) -> User | None:
         """Find user by session id
+        
         Args:
             session_id (str): user session id
-
         Returns:
             User | None: User object if found else None
         """
