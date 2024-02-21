@@ -120,8 +120,8 @@ class Auth:
             return
 
     def get_reset_password_token(self, email: str) -> str:
-        """Get reset password.
-        
+        """Get reset token.
+
         Args:
             email (str): user email
         Returns:
