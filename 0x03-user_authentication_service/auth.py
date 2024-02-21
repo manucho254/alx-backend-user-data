@@ -125,7 +125,7 @@ class Auth:
         Args:
             email (str): user email
         Returns:
-            str : reset token
+            str: reset token
         """
         user = self._db.find_user_by(email=email)
         if not user:
