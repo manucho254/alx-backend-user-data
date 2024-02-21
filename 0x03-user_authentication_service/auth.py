@@ -117,9 +117,9 @@ class Auth:
 
     def get_reset_password_token(self, email: str) -> str:
         """Get reset password.
+
         Args:
             email (str): user email
-
         Raises:
             ValueError: raise if no user is found
         Returns:
