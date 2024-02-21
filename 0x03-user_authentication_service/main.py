@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" End-to-end integration test 
+""" End-to-end integration test
 """
 import requests
 
@@ -81,7 +81,9 @@ def log_out(session_id: str) -> None:
         session_id (str): _description_
     """
     cookies = dict(session_id=session_id)
-    res = requests.delete(f"{URL}/sessions", cookies=cookies, allow_redirects=True)
+    res = requests.delete(f"{URL}/sessions",
+                          cookies=cookies,
+                          allow_redirects=True)
 
     assert res.status_code == 200
 
@@ -112,7 +114,8 @@ def update_password(email: str, reset_token: str, new_password: str) -> None:
         reset_token (str): _description_
         new_password (str): _description_
     """
-    data = {"email": email, "reset_token": reset_token, "new_password": new_password}
+    data = {"email": email, "reset_token": reset_token,
+            "new_password": new_password}
     res = requests.put(f"{URL}/reset_password", data=data)
 
     assert res.status_code == 200
