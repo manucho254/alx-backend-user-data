@@ -37,3 +37,20 @@ class Auth:
         except (InvalidRequestError, NoResultFound):
             user = self._db.add_user(email, _hash_password(password))
             return user
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """check if login is valid
+        Args:
+            email (str): user email
+            password (str): user password
+
+        Returns:
+            bool: True if password matches else False
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            if user:
+                return bcrypt.checkpw(password, user.hashed_password)
+            return False
+        except (InvalidRequestError, NoResultFound):
+            return False
