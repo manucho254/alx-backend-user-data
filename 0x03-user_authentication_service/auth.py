@@ -87,7 +87,7 @@ class Auth:
 
     def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
         """Find user by session id
-        
+
         Args:
             session_id (str): user session id
         Returns:
@@ -101,5 +101,16 @@ class Auth:
             if user.session_id is None:
                 return
             return user
+        except (InvalidRequestError, NoResultFound):
+            return
+
+    def destroy_session(self, user_id: int) -> None:
+        """Destroy user session
+        Args:
+            user_id (int): user id
+        """
+
+        try:
+            self._db.update_user(user_id, session_id=None)
         except (InvalidRequestError, NoResultFound):
             return
