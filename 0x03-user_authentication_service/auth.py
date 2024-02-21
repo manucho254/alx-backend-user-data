@@ -78,8 +78,7 @@ class Auth:
                 return
 
             session_id = _generate_uuid()
-            kwargs = {"session_id", session_id}
-            self._db.update_user(user_id=user.id, **kwargs)
+            self._db.update_user(user.id, session_id=session_id)
 
             return session_id
         except (InvalidRequestError, NoResultFound):
