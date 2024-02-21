@@ -80,7 +80,7 @@ def get_reset_password_token():
         token = get_reset_password_token(email)
         res = {"email": email, "reset_token": token}
         return jsonify(res), 200
-    except ValueError:
+    except Exception:
         abort(403)
 
 
