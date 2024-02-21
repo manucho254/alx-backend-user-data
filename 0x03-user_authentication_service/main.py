@@ -97,8 +97,11 @@ def reset_password_token(email: str) -> str:
     """
     data = {"email": email}
     res = requests.post(f"{URL}/reset_password", data=data)
+    reset_token = dict(res.json()).get("reset_token")
 
     assert res.status_code == 200
+
+    return reset_token
 
 
 def update_password(email: str, reset_token: str, new_password: str) -> None:
