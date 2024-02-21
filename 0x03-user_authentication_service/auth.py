@@ -30,17 +30,12 @@ class Auth:
         Returns:
             User: user object
         """
-        user = None
         try:
-            user = self._db.find_user_by(email=email)
+            self._db.find_user_by(email=email)
         except (InvalidRequestError, NoResultFound) as e:
-            pass
-
-        if user:
+            user = self._db.add_user(email, _hash_password(password))
+            self._db._session.add(user)
+            self._db._session.commit()
+            return user
+        else:
             raise ValueError(f"User {email} already exists")
-
-        new_user = self._db.add_user(email, _hash_password(password))
-        self._db._session.add(new_user)
-        self._db._session.commit()
-
-        return new_user
